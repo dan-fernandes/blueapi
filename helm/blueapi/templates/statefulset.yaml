@@ -13,7 +13,8 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: /metrics
-        prometheus.io/port: "{{ .Values.service.port }}"
+        # prometheus.io/port: "{{ .Values.service.port }}"
+        promehteus.io/por: 8000
       {{- if ((.Values.worker.logging).graylog).enabled }}
         fluentd-ignore: "true"
       {{- end }}
