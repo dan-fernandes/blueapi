@@ -30,6 +30,7 @@ from observability_utils.tracing import (
 )
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from opentelemetry.trace import get_tracer_provider
+from prometheus_client import make_asgi_app
 from pydantic import ValidationError
 from starlette.responses import JSONResponse
 from starlette.status import WS_1007_INVALID_FRAME_PAYLOAD_DATA, WS_1013_TRY_AGAIN_LATER
@@ -179,6 +180,11 @@ def get_app(config: ApplicationConfig):
             WebsocketOriginCheck,
             allow_origins=config.api.cors.origins,
         )
+
+    # Add prometheus asgi middleware to route /metrics requests
+    metrics_app = make_asgi_app()
+    app.mount("/metrics", metrics_app)
+
     return app
 
 
