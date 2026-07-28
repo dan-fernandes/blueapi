@@ -27,11 +27,11 @@ from observability_utils.tracing import (
 )
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from opentelemetry.trace import get_tracer_provider
-from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import ValidationError
 from starlette.responses import JSONResponse
 
 from blueapi.config import ApplicationConfig, OIDCConfig, Tag
+from blueapi.metrics import make_metrics_app
 from blueapi.service import interface
 from blueapi.service.authentication import Fedid, build_access_token_check
 from blueapi.service.middleware import (
@@ -151,6 +151,12 @@ def get_app(config: ApplicationConfig):
             allow_methods=config.api.cors.allow_methods,
             allow_headers=config.api.cors.allow_headers,
         )
+
+    # Add prometheus asgi middleware to route /metrics requests
+    if config.metrics.enabled:
+        metrics_app = make_metrics_app()
+        app.mount("/metrics", metrics_app)
+
     return app
 
 
@@ -625,8 +631,6 @@ def start(config: ApplicationConfig):
         http_capture_headers_server_request=[",*"],
         http_capture_headers_server_response=[",*"],
     )
-
-    Instrumentator().instrument(app).expose(app)
 
     app.state.config = config
     assert config.api.url.host is not None, "API URL missing host"
