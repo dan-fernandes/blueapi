@@ -219,6 +219,7 @@ worker:
   # -- Configures metrics
   metrics:
     enabled: False
+    prometheus_multiproc_dir: /tmp
 
 # -- Configure the initContainer that checks out the scratch configuration repositories
 initContainer:

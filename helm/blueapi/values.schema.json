@@ -400,6 +400,9 @@
                     "properties": {
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "prometheus_multiproc_dir": {
+                            "type": "string"
                         }
                     }
                 },
