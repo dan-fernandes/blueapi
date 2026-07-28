@@ -219,6 +219,10 @@ spec:
             - name: DEBUG_MODE
               value: "ON"           
             {{- end }}
+            {{- if .Values.metrics.enabled }}
+            - name: PROMETHEUS_MULTIPROC_DIR
+              value: {{ .Values.metrics.prometheus_multiproc_dir }}
+            {{- end }}
             {{- if .Values.extraEnvVars }}
               {{- toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}
