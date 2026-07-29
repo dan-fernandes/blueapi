@@ -318,6 +318,9 @@ def test_config_yaml_parsed(temp_yaml_config_file):
                     "url": "tcp://graylog-log-target.diamond.ac.uk:12232/",
                 },
             },
+            "metrics": {
+                "enabled": True,
+            },
             "numtracker": None,
             "oidc": {
                 "well_known_url": None,
@@ -376,6 +379,9 @@ def test_config_yaml_parsed(temp_yaml_config_file):
                     "enabled": False,
                     "url": "tcp://graylog-log-target.diamond.ac.uk:12232/",
                 },
+            },
+            "metrics": {
+                "enabled": True,
             },
             "api": {
                 "url": "http://0.0.0.0:8001/",
