@@ -320,6 +320,7 @@ def test_config_yaml_parsed(temp_yaml_config_file):
             },
             "metrics": {
                 "enabled": True,
+                "prometheus_multiproc_dir": "/tmp",
             },
             "numtracker": None,
             "oidc": {
@@ -382,6 +383,7 @@ def test_config_yaml_parsed(temp_yaml_config_file):
             },
             "metrics": {
                 "enabled": True,
+                "prometheus_multiproc_dir": "/tmp",
             },
             "api": {
                 "url": "http://0.0.0.0:8001/",
